@@ -41,7 +41,7 @@ class SellingPaymentController extends Controller
         $this->authorize('create', SellingPayment::class);
 
         $validator = Validator::make($request->all(), [
-            'selling_id' => 'required|exists:sellings,id',
+            'contact_id' => 'required|exists:contacts,id',
             'payment_number' => 'required|string',
             'type' => 'required|in:Cash,Cek/Giro,Transfer,Kartu Kredit',
             'date' => 'required|date_format:Y-m-d',
@@ -74,6 +74,7 @@ class SellingPaymentController extends Controller
                 }
 
                 $payment = new SellingPayment;
+                $payment->contact_id = $request->contact_id;
                 $payment->selling_id = $request->selling_id;
                 $payment->payment_number = $request->payment_number;
                 $payment->type = $request->type;
@@ -155,7 +156,7 @@ class SellingPaymentController extends Controller
         $this->authorize('update', $payment);
         
         $validator = Validator::make($request->all(), [
-            'selling_id' => 'required|exists:sellings,id',
+            'contact_id' => 'required|exists:contacts,id',
             'payment_number' => 'required|string',
             'type' => 'required|in:Cash,Cek/Giro,Transfer,Kartu Kredit',
             'date' => 'required|date_format:Y-m-d',
@@ -188,6 +189,7 @@ class SellingPaymentController extends Controller
                     $store_as = NULL;
                 }
                     
+                $payment->contact_id = $request->contact_id;
                 $payment->selling_id = $request->selling_id;
                 $payment->payment_number = $request->payment_number;
                 $payment->type = $request->type;

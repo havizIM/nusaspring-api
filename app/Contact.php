@@ -52,7 +52,7 @@ class Contact extends Model
 
     public function selling_payments()
     {
-        return $this->hasManyThrough('App\SellingPayment', 'App\Selling');
+        return $this->hasMany('App\SellingPayment');
     }
 
     public function getSumSellingPaymentAttribute()
@@ -64,27 +64,27 @@ class Contact extends Model
 
     public function selling_returns()
     {
-        return $this->hasManyThrough('App\SellingReturn', 'App\Selling');
+        return $this->hasMany('App\SellingReturn');
     }
 
     public function selling_return_products()
     {
-        return $this->selling_returns()->join('selling_return_products','selling_returns.id','=','selling_return_products.selling_return_id')->select('selling_return_products.*');
+        return $this->hasManyThrough('App\SellingReturnProduct', 'App\SellingReturn');
     }
 
     public function getSumSellingReturnDiscountAttribute()
     {
-        return $this->selling_return_products()->sum('discount_amount');
+        return $this->selling_return_products()->sum('selling_return_products.discount_amount');
     }
 
     public function getSumSellingReturnAttribute()
     {
-        return $this->selling_return_products()->sum('total');
+        return $this->selling_return_products()->sum('selling_return_products.total');
     }
 
     public function getSumSellingReturnPpnAttribute()
     {
-        return $this->selling_returns()->sum('selling_returns.total_ppn');
+        return $this->selling_returns()->sum('total_ppn');
     }
 
 
@@ -118,7 +118,7 @@ class Contact extends Model
 
     public function purchase_payments()
     {
-        return $this->hasManyThrough('App\PurchasePayment', 'App\Purchase');
+        return $this->hasMany('App\PurchasePayment');
     }
 
     public function getSumPurchasePaymentAttribute()
@@ -130,27 +130,27 @@ class Contact extends Model
 
     public function purchase_returns()
     {
-        return $this->hasManyThrough('App\PurchaseReturn', 'App\Purchase');
+        return $this->hasMany('App\PurchaseReturn');
     }
 
     public function purchase_return_products()
     {
-        return $this->purchase_returns()->join('purchase_return_products','purchase_returns.id','=','purchase_return_products.purchase_return_id')->select('purchase_return_products.*');
+        return $this->hasManyThrough('App\PurchaseReturnProduct', 'App\PurchaseReturn');
     }
 
     public function getSumPurchaseReturnDiscountAttribute()
     {
-        return $this->purchase_return_products()->sum('discount_amount');
+        return $this->purchase_return_products()->sum('purchase_return_products.discount_amount');
     }
 
     public function getSumPurchaseReturnAttribute()
     {
-        return $this->purchase_return_products()->sum('total');
+        return $this->purchase_return_products()->sum('purchase_return_products.total');
     }
 
     public function getSumPurchaseReturnPpnAttribute()
     {
-        return $this->purchase_returns()->sum('purchase_returns.total_ppn');
+        return $this->purchase_returns()->sum('total_ppn');
     }
 
 

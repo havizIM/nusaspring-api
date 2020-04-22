@@ -19,13 +19,25 @@ class SellingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Selling::class);
         
-        $sellings = Selling::with([
-            'contact'
-        ])->withCount('products')->get();
+
+        $search = $request->search;
+        $limit = $request->limit;
+        $customer = $request->customer;
+
+        if($limit || $search || $customer){
+            $sellings = Selling::where('contact_id', '=', $customer)
+                                ->where('selling_number', 'like', '%'.$search.'%')
+                                ->limit($limit)
+                                ->get();
+        } else {
+            $sellings = Selling::with([
+                'contact'
+            ])->withCount('products')->get();
+        }
 
         $sellings->each->setAppends([
             'grand_total', 

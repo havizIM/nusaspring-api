@@ -15,7 +15,8 @@ class CreatePurchaseReturnsTable extends Migration
     {
         Schema::create('purchase_returns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('purchase_id')->references('id')->on('purchases')->unsigned();
+            $table->foreignId('contact_id')->references('id')->on('contacts')->unsigned();
+            $table->foreignId('purchase_id')->nullable()->references('id')->on('purchases');
             $table->string('return_number', 20);
             $table->string('reference_number', 20)->nullable();
             $table->text('message')->nullable();

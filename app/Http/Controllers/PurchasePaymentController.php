@@ -41,7 +41,7 @@ class PurchasePaymentController extends Controller
         $this->authorize('create', PurchasePayment::class);
 
         $validator = Validator::make($request->all(), [
-            'purchase_id' => 'required|exists:purchases,id',
+            'contact_id' => 'required|exists:contacts,id',
             'payment_number' => 'required|string',
             'type' => 'required|in:Cash,Cek/Giro,Transfer,Kartu Kredit',
             'date' => 'required|date_format:Y-m-d',
@@ -74,6 +74,7 @@ class PurchasePaymentController extends Controller
                 }
 
                 $payment = new PurchasePayment;
+                $payment->contact_id = $request->contact_id;
                 $payment->purchase_id = $request->purchase_id;
                 $payment->payment_number = $request->payment_number;
                 $payment->type = $request->type;

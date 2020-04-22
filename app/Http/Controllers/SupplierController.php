@@ -17,11 +17,27 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Contact::class);
+
+        $search = $request->search;
+        $limit = $request->limit;
+        $type = $request->type;
+
+        if($limit || $search || $type){
+            $suppliers = Contact::where('type', '=', $type)
+                                ->where(function($query) use($search){
+                                    $query->where('pic', 'like', '%'.$search.'%')
+                                          ->orWhere('contact_name', 'like', '%'.$search.'%');
+                                })
+                                ->limit($limit)
+                                ->get();
+        } else {
+            $suppliers = Contact::where('type', '=', 'Supplier')->get();
+        }
         
-        $suppliers = Contact::where('type', 'Supplier')->get();
+        
         $suppliers->each->setAppends([
             'sum_purchase', 
             'sum_purchase_ppn', 

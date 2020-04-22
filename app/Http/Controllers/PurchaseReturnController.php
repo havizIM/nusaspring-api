@@ -47,7 +47,7 @@ class PurchaseReturnController extends Controller
         $this->authorize('create', PurchaseReturn::class);
 
         $validator = Validator::make($request->all(), [
-            'purchase_id' => 'required|exists:purchases,id',
+            'contact_id' => 'required|exists:contacts,id',
             'return_number' => 'required',
             'date' => 'required|date_format:Y-m-d',
             'product_id' => 'required|array',
@@ -88,6 +88,7 @@ class PurchaseReturnController extends Controller
             }
 
             $return = new PurchaseReturn;
+            $return->contact_id = $request->contact_id;
             $return->purchase_id = $request->purchase_id;
             $return->return_number = $request->return_number;
             $return->reference_number = $request->reference_number;
@@ -202,7 +203,7 @@ class PurchaseReturnController extends Controller
         $this->authorize('update', $return);
         
         $validator = Validator::make($request->all(), [
-            'purchase_id' => 'required|exists:purchases,id',
+            'contact_id' => 'required|exists:contacts,id',
             'return_number' => 'required',
             'date' => 'required|date_format:Y-m-d',
             'product_id' => 'required|array',
@@ -243,6 +244,7 @@ class PurchaseReturnController extends Controller
                     $store_as = NULL;
                 }
                     
+                $return->contact_id = $request->contact_id;
                 $return->purchase_id = $request->purchase_id;
                 $return->return_number = $request->return_number;
                 $return->reference_number = $request->reference_number;

@@ -48,7 +48,7 @@ class SellingReturnController extends Controller
         $this->authorize('create', SellingReturn::class);
 
         $validator = Validator::make($request->all(), [
-            'selling_id' => 'required|exists:sellings,id',
+            'contact_id' => 'required|exists:contacts,id',
             'return_number' => 'required',
             'date' => 'required|date_format:Y-m-d',
             'product_id' => 'required|array',
@@ -89,6 +89,7 @@ class SellingReturnController extends Controller
             }
 
             $return = new SellingReturn;
+            $return->contact_id = $request->contact_id;
             $return->selling_id = $request->selling_id;
             $return->return_number = $request->return_number;
             $return->reference_number = $request->reference_number;
@@ -203,7 +204,7 @@ class SellingReturnController extends Controller
         $this->authorize('update', $return);
         
         $validator = Validator::make($request->all(), [
-            'selling_id' => 'required|exists:sellings,id',
+            'contact' => 'required|exists:contacts,id',
             'return_number' => 'required',
             'date' => 'required|date_format:Y-m-d',
             'product_id' => 'required|array',
@@ -244,6 +245,7 @@ class SellingReturnController extends Controller
                     $store_as = NULL;
                 }
                     
+                $return->contact_id = $request->contact_id;
                 $return->selling_id = $request->selling_id;
                 $return->return_number = $request->return_number;
                 $return->reference_number = $request->reference_number;

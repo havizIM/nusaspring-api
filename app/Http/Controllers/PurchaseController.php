@@ -19,11 +19,23 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Purchase::class);
         
-        $purchases = Purchase::with('contact')->withCount('products')->get();
+        $search = $request->search;
+        $limit = $request->limit;
+        $supplier = $request->supplier;
+
+        if($limit || $search || $supplier){
+            $purchases = Purchase::where('contact_id', '=', $supplier)
+                                ->where('purchase_number', 'like', '%'.$search.'%')
+                                ->limit($limit)
+                                ->get();
+        } else {
+            $purchases = Purchase::with('contact')->withCount('products')->get();
+        }
+
         $purchases->each->setAppends([
             'grand_total', 
             'total_qty', 

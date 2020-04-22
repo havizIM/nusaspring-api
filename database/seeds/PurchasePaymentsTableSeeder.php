@@ -14,6 +14,7 @@ class PurchasePaymentsTableSeeder extends Seeder
     {
         DB::table('purchase_payments')->insert([
             [
+                'contact_id' => 1,
                 'purchase_id' => 1,
                 'payment_number' => 'RV-00001',
                 'type' => 'Cash',
@@ -22,6 +23,7 @@ class PurchasePaymentsTableSeeder extends Seeder
                 'amount' => -100000,
             ],
             [
+                'contact_id' => 1,
                 'purchase_id' => 2,
                 'payment_number' => 'RV-00002',
                 'type' => 'Cash',

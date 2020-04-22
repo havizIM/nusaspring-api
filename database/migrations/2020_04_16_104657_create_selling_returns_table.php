@@ -15,7 +15,8 @@ class CreateSellingReturnsTable extends Migration
     {
         Schema::create('selling_returns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('selling_id')->references('id')->on('sellings')->unsigned();
+            $table->foreignId('contact_id')->references('id')->on('contacts')->unsigned();
+            $table->foreignId('selling_id')->nullable()->references('id')->on('sellings');
             $table->string('return_number', 20);
             $table->string('reference_number', 20)->nullable();
             $table->text('message')->nullable();

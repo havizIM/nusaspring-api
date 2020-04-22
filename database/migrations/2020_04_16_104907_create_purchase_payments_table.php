@@ -15,7 +15,8 @@ class CreatePurchasePaymentsTable extends Migration
     {
         Schema::create('purchase_payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('purchase_id')->references('id')->on('purchases')->unsigned();
+            $table->foreignId('contact_id')->references('id')->on('contacts')->unsigned();
+            $table->foreignId('purchase_id')->nullable()->references('id')->on('purchases');
             $table->string('payment_number', 20);
             $table->enum('type', ['Cash', 'Cek/Giro', 'Transfer', 'Kartu Kredit']);
             $table->text('description')->nullable();

@@ -17,11 +17,26 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Contact::class);
+
+        $search = $request->search;
+        $limit = $request->limit;
+        $type = $request->type;
+
+        if($limit || $search || $type){
+            $customers = Contact::where('type', '=', $type)
+                                ->where(function($query) use($search){
+                                    $query->where('pic', 'like', '%'.$search.'%')
+                                          ->orWhere('contact_name', 'like', '%'.$search.'%');
+                                })
+                                ->limit($limit)
+                                ->get();
+        } else {
+            $customers = Contact::where('type', '=', 'Customer')->get();
+        }
         
-        $customers = Contact::where('type', 'Customer')->get();
         $customers->each->setAppends([
             'sum_selling',
             'sum_selling_discount',
