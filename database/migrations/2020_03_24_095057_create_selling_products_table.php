@@ -17,7 +17,7 @@ class CreateSellingProductsTable extends Migration
             $table->foreignId('selling_id')->references('id')->on('sellings')->unsigned();
             $table->foreignId('product_id')->references('id')->on('products')->unsigned();
             $table->string('description');
-            $table->integer('qty');
+            $table->double('qty', 15, 2);
             $table->string('unit');
             $table->double('unit_price', 15, 2);
             $table->enum('ppn', ['Y', 'N'])->default('N');
