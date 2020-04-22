@@ -51,6 +51,10 @@ class SellingPayment extends Model
         return $this->belongsTo('App\Selling');
     }
     
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
+    }
 
     public function created_by_user()
     {

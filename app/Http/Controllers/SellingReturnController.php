@@ -22,7 +22,11 @@ class SellingReturnController extends Controller
     {
         $this->authorize('viewAny', SellingReturn::class);
         
-        $return = SellingReturn::with('selling.contact')->withCount('products')->get();
+        $return = SellingReturn::with([
+            'selling',
+            'contact'
+        ])->withCount('products')->get();
+
         $return->each->setAppends([
             'grand_total', 
             'total_discount',
@@ -168,8 +172,8 @@ class SellingReturnController extends Controller
     {
         $returns = SellingReturn::with([
             'products',
+            'contact',
             'selling.products',
-            'selling.contact',
             'created_by_user',
             'updated_by_user',
             'deleted_by_user'

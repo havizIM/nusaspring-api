@@ -17,11 +17,20 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Category::class);
 
-        $categories = Category::withCount('products')->get();
+        $search = $request->search;
+        $limit = $request->limit;
+
+        if($limit || $search){
+            $categories = Category::where('category_name', 'like', '%'.$search.'%')
+                         ->limit($limit)
+                         ->get();;
+        } else {
+            $categories = Category::withCount('products')->get();
+        }
 
         return response()->json([
             'status' => true,

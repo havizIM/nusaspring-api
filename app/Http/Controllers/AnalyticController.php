@@ -112,6 +112,7 @@ class AnalyticController extends Controller
         ->join('products', 'products.id' , '=', 'purchase_products.product_id')
         ->groupBy('purchase_products.product_id')
         ->orderBy($order_by, 'desc')
+        ->where('products.product_name', '!=', 'Penjualan / Pembelian')
         ->limit(10)
         ->get();
 

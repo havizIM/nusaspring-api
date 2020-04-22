@@ -21,7 +21,10 @@ class PurchasePaymentController extends Controller
     {
         $this->authorize('viewAny', PurchasePayment::class);
         
-        $payments = PurchasePayment::with('purchase.contact')->get();
+        $payments = PurchasePayment::with([
+            'purchase',
+            'contact'
+        ])->get();
         
         return response()->json([
             'status' => true,
@@ -127,7 +130,8 @@ class PurchasePaymentController extends Controller
     public function show($id)
     {
         $purchase_payment = PurchasePayment::with([
-            'purchase.contact', 
+            'purchase',
+            'contact', 
             'created_by_user', 
             'updated_by_user', 
             'deleted_by_user'

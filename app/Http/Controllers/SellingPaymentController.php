@@ -21,7 +21,10 @@ class SellingPaymentController extends Controller
     {
         $this->authorize('viewAny', SellingPayment::class);
         
-        $payment = SellingPayment::with('selling.contact')->get();
+        $payment = SellingPayment::with([
+            'selling',
+            'contact'
+        ])->get();
         
         return response()->json([
             'status' => true,
@@ -127,7 +130,8 @@ class SellingPaymentController extends Controller
     public function show($id)
     {
         $selling_payment = SellingPayment::with([
-            'selling.contact', 
+            'selling',
+            'contact', 
             'created_by_user', 
             'updated_by_user', 
             'deleted_by_user'

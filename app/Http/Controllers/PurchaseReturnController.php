@@ -22,7 +22,11 @@ class PurchaseReturnController extends Controller
     {
         $this->authorize('viewAny', PurchaseReturn::class);
         
-        $returns = PurchaseReturn::with('purchase.contact')->withCount('products')->get();
+        $returns = PurchaseReturn::with([
+            'purchase',
+            'contact'
+        ])->withCount('products')->get();
+
         $returns->each->setAppends([
             'grand_total', 
             'total_discount',
@@ -167,8 +171,8 @@ class PurchaseReturnController extends Controller
     {
         $returns = PurchaseReturn::with([
             'products', 
+            'contact', 
             'purchase.products', 
-            'purchase.contact', 
             'created_by_user', 
             'updated_by_user', 
             'deleted_by_user'

@@ -17,11 +17,22 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Unit::class);
         
-        $units = Unit::withCount('products')->get();
+        $search = $request->search;
+        $limit = $request->limit;
+
+        if($limit || $search){
+            $units = Unit::where('unit_name', 'like', '%'.$search.'%')
+                         ->limit($limit)
+                         ->get();
+        } else {
+            $units = Unit::withCount('products')->get();
+        }
+
+        
 
         return response()->json([
             'status' => true,

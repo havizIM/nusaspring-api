@@ -48,6 +48,11 @@ class SellingReturn extends Model
     	});
     }
 
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
+    }
+
     public function selling()
     {
         return $this->belongsTo('App\Selling');

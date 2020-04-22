@@ -48,6 +48,11 @@ class PurchaseReturn extends Model
     	});
     }
 
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
+    }
+
     public function purchase()
     {
         return $this->belongsTo('App\Purchase');
