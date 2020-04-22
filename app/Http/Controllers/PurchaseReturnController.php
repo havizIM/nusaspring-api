@@ -93,8 +93,6 @@ class PurchaseReturnController extends Controller
             $return->reference_number = $request->reference_number;
             $return->message = $request->message;
             $return->memo = $request->memo;
-            $return->discount_percent = $request->discount_percent;
-            $return->discount_amount = abs($request->discount_amount);
             $return->total_ppn = abs($request->total_ppn) * -1;
             $return->date = $request->date;
             $return->attachment = $store_as;
@@ -109,16 +107,20 @@ class PurchaseReturnController extends Controller
 
         foreach($request['product_id'] as $key => $val){
             try {
-                $product = new PurchaseReturnProduct;
-                $product->purchase_return_id = $return->id;
-                $product->product_id = $request['product_id'][$key];
-                $product->description = $request['description'][$key];
-                $product->unit = $request['unit'][$key];
-                $product->qty = abs($request['qty'][$key]) * -1;
-                $product->ppn = $request['ppn'][$key];
-                $product->unit_price = $request['unit_price'][$key];
-                $product->total = $request['unit_price'][$key] * abs($request['qty'][$key]) * -1;
-                $product->save();
+                if(abs($request['qty'][$key]) != 0){
+                    $product = new PurchaseReturnProduct;
+                    $product->purchase_return_id = $return->id;
+                    $product->product_id = $request['product_id'][$key];
+                    $product->description = $request['description'][$key];
+                    $product->unit = $request['unit'][$key];
+                    $product->qty = abs($request['qty'][$key]) * -1;
+                    $product->ppn = $request['ppn'][$key];
+                    $product->discount_percent = $request['discount_percent'][$key];
+                    $product->discount_amount = abs($request['discount_amount'][$key]);
+                    $product->unit_price = $request['unit_price'][$key];
+                    $product->total = $request['unit_price'][$key] * abs($request['qty'][$key]) * -1;
+                    $product->save();
+                }
             } catch (\Exception $e) {
                 DB::rollback();
                 return response()->json([
@@ -134,7 +136,7 @@ class PurchaseReturnController extends Controller
             $log->user_id = Auth::id();
             $log->description = 'Add Purchase Return';
             $log->reference_id = $return->id;
-            $log->url = '#/purchase_return';
+            $log->url = '#/purchase_return/'.$return->id;
 
             $log->save();
         } catch (\Exception $e) {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
+
 use App\Product;
 use App\Log;
 
@@ -18,14 +19,25 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Product::class);
 
-        $product = Product::with([
-            'category', 
-            'unit'
-        ])->get();
+        $search = $request->search;
+        $limit = $request->limit;
+
+        if($limit || $search){
+            $product = Product::with([
+                'category', 
+                'unit'
+            ])->where('product_name', 'like', '%'.$search.'%')->orWhere('sku', 'like', '%'.$search.'%')->limit($limit)->get();
+        } else {
+            $product = Product::with([
+                'category', 
+                'unit'
+            ])->get();
+        }
+
 
         $product->each->setAppends([
             'sum_purchase', 

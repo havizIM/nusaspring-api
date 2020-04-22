@@ -179,7 +179,7 @@ class SellingController extends Controller
             'products', 
             'contact', 
             'payments', 
-            'returns', 
+            'returns.products', 
             'created_by_user', 
             'updated_by_user', 
             'deleted_by_user'
