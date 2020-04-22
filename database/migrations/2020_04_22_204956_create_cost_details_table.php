@@ -16,7 +16,10 @@ class CreateCostDetailsTable extends Migration
         Schema::create('cost_details', function (Blueprint $table) {
             $table->foreignId('cost_id')->references('id')->on('costs')->unsigned();
             $table->string('description');
+            $table->enum('ppn', ['Y', 'N'])->default('N');
             $table->double('amount', 15, 2);
+            $table->double('discount_percent', 15, 2)->nullable();
+            $table->double('discount_amount', 15, 2)->nullable();
             $table->text('attachment')->nullable();
         });
     }

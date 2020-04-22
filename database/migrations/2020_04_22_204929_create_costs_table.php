@@ -16,6 +16,8 @@ class CreateCostsTable extends Migration
         Schema::create('costs', function (Blueprint $table) {
             $table->id();
             $table->string('cost_number', 20);
+            $table->string('to', 50);
+            $table->enum('type', ['Cash', 'Cek/Giro', 'Transfer', 'Kartu Kredit']);
             $table->date('date');
             $table->text('message')->nullable();
             $table->text('memo')->nullable();
