@@ -10,6 +10,8 @@ class Cost extends Model
     use SoftDeletes;
 
     protected $table = 'costs';
+    
+    protected $appends = ['grand_total', 'total_discount'];
 
     protected $fillable = [
         'cost_number', 'date', 'message', 'memo', 'attachment'
@@ -49,5 +51,15 @@ class Cost extends Model
     public function details()
     {
         return $this->hasMany('App\CostDetail');
+    }
+
+    public function getGrandTotalAttribute()
+    {
+        return $this->details()->sum('amount');
+    }
+
+    public function getTotalDiscountAttribute()
+    {
+        return $this->details()->sum('discount_amount');
     }
 }

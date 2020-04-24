@@ -18,7 +18,7 @@ class CostPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -30,7 +30,7 @@ class CostPolicy
      */
     public function view(User $user, Cost $cost)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -41,7 +41,7 @@ class CostPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -53,7 +53,7 @@ class CostPolicy
      */
     public function update(User $user, Cost $cost)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -65,7 +65,7 @@ class CostPolicy
      */
     public function delete(User $user, Cost $cost)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -77,7 +77,7 @@ class CostPolicy
      */
     public function restore(User $user, Cost $cost)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -89,6 +89,6 @@ class CostPolicy
      */
     public function forceDelete(User $user, Cost $cost)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 }

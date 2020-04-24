@@ -11,6 +11,8 @@ class StockOpname extends Model
 
     protected $table = 'stock_opnames';
 
+    protected $appends = ['total_system_amount', 'total_actual_amount', 'total_system_qty', 'total_actual_qty'];
+
     protected $fillable = [
         'so_number', 'status', 'date', 'memo', 'message', 'attachment'
     ];
@@ -49,5 +51,25 @@ class StockOpname extends Model
     public function products()
     {
         return $this->hasMany('App\StockOpnameProduct');
+    }
+
+    public function getTotalSystemAmountAttribute()
+    {
+        return $this->products()->sum('system_total');
+    }
+
+    public function getTotalActualAmountAttribute()
+    {
+        return $this->products()->sum('actual_total');
+    }
+
+    public function getTotalSystemQtyAttribute()
+    {
+        return $this->products()->sum('system_qty');
+    }
+
+    public function getTotalActualQtyAttribute()
+    {
+        return $this->products()->sum('actual_qty');
     }
 }

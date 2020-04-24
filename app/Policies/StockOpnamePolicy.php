@@ -18,7 +18,7 @@ class StockOpnamePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -30,7 +30,7 @@ class StockOpnamePolicy
      */
     public function view(User $user, StockOpname $stockOpname)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -41,7 +41,7 @@ class StockOpnamePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -53,7 +53,7 @@ class StockOpnamePolicy
      */
     public function update(User $user, StockOpname $stockOpname)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -65,7 +65,7 @@ class StockOpnamePolicy
      */
     public function delete(User $user, StockOpname $stockOpname)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -77,7 +77,7 @@ class StockOpnamePolicy
      */
     public function restore(User $user, StockOpname $stockOpname)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 
     /**
@@ -89,6 +89,6 @@ class StockOpnamePolicy
      */
     public function forceDelete(User $user, StockOpname $stockOpname)
     {
-        //
+        return $user->roles == 'ADMIN' || $user->roles == 'HELPDESK';
     }
 }

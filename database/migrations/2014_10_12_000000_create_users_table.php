@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name', 50);
             $table->string('username', 30)->unique();
             $table->string('email', 50);
+            $table->string('phone', 15)->nullable();
+            $table->text('alamat')->nullable();
             $table->string('password');
             $table->enum('roles', ['HELPDESK', 'ADMIN'])->default('ADMIN');
             $table->enum('active', ['Y', 'N'])->default('Y');

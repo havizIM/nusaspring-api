@@ -16,12 +16,13 @@ class CreateCostsTable extends Migration
         Schema::create('costs', function (Blueprint $table) {
             $table->id();
             $table->string('cost_number', 20);
-            $table->string('to', 50);
+            $table->string('to', 50)->nullable();
             $table->enum('type', ['Cash', 'Cek/Giro', 'Transfer', 'Kartu Kredit']);
             $table->date('date');
             $table->text('message')->nullable();
             $table->text('memo')->nullable();
             $table->text('attachment')->nullable();
+            $table->double('total_ppn', 15, 2)->nullable();
             $table->timestamps();
             $table->softDeletes(); // deleted_at
             $table->integer('created_by')->nullable();

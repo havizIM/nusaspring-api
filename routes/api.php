@@ -62,6 +62,10 @@ Route::group([
 
     Route::apiResource('selling_returns', 'SellingReturnController');
 
+    Route::apiResource('costs', 'CostController');
+
+    Route::apiResource('stock_opnames', 'StockOpnameController');
+
     Route::get('export/database', 'ExportController@database');
 
     Route::get('setting/profile', 'SettingController@profile');
