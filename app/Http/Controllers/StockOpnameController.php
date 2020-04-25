@@ -12,6 +12,8 @@ use App\StockOpname;
 use App\StockOpnameProduct;
 use App\Log;
 
+use Help;
+
 class StockOpnameController extends Controller
 {
     /**
@@ -91,7 +93,7 @@ class StockOpnameController extends Controller
             }
 
             $stock_opname = new StockOpname;
-            $stock_opname->so_number = $request->so_number;
+            $stock_opname->so_number = Help::dateCode('SO', 'stock_opnames', 'so_number');
             $stock_opname->date = $request->date;
             $stock_opname->status = 'Proccess';
             $stock_opname->message = $request->message;

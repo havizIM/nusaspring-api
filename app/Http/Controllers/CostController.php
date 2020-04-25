@@ -12,6 +12,8 @@ use App\Cost;
 use App\CostDetail;
 use App\Log;
 
+use Help;
+
 class CostController extends Controller
 {
     /**
@@ -83,7 +85,7 @@ class CostController extends Controller
             }
 
             $cost = new Cost;
-            $cost->cost_number = $request->cost_number;
+            $cost->cost_number = Help::dateCode('CST', 'costs', 'cost_number');
             $cost->to = $request->to;
             $cost->type = $request->type;
             $cost->date = $request->date;

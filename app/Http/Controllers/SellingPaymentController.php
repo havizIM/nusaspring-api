@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\SellingPayment;
 use App\Log;
 
+use Help;
+
 class SellingPaymentController extends Controller
 {
     /**
@@ -79,7 +81,7 @@ class SellingPaymentController extends Controller
                 $payment = new SellingPayment;
                 $payment->contact_id = $request->contact_id;
                 $payment->selling_id = $request->selling_id;
-                $payment->payment_number = $request->payment_number;
+                $payment->payment_number = Help::dateCode('RV', 'selling_payments', 'payment_number');
                 $payment->type = $request->type;
                 $payment->date = $request->date;
                 $payment->description = $request->description;

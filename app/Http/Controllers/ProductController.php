@@ -133,7 +133,7 @@ class ProductController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Success add product',
-            'results' => $product,
+            'results' => $product->load('unit'),
         ], 200);
     }
 

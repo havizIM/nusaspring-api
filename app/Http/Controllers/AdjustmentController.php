@@ -12,6 +12,8 @@ use App\Adjustment;
 use App\AdjustmentProduct;
 use App\Log;
 
+use Help;
+
 class AdjustmentController extends Controller
 {
     /**
@@ -85,7 +87,7 @@ class AdjustmentController extends Controller
 
             $adjustment = new Adjustment;
             $adjustment->category = $request->category;
-            $adjustment->reference_number = $request->reference_number;
+            $adjustment->reference_number = Help::dateCode('ADJ', 'adjustments', 'reference_number');
             $adjustment->date = $request->date;
             $adjustment->memo = $request->memo;
             $adjustment->attachment = $store_as;

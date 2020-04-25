@@ -11,6 +11,8 @@ use App\PurchaseReturn;
 use App\PurchaseReturnProduct;
 use App\Log;
 
+use Help;
+
 class PurchaseReturnController extends Controller
 {
     /**
@@ -94,7 +96,7 @@ class PurchaseReturnController extends Controller
             $return = new PurchaseReturn;
             $return->contact_id = $request->contact_id;
             $return->purchase_id = $request->purchase_id;
-            $return->return_number = $request->return_number;
+            $return->return_number = Help::dateCode('RPO', 'purchase_returns', 'return_number');
             $return->reference_number = $request->reference_number;
             $return->message = $request->message;
             $return->memo = $request->memo;

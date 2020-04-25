@@ -11,6 +11,8 @@ use App\SellingReturn;
 use App\SellingReturnProduct;
 use App\Log;
 
+use Help;
+
 class SellingReturnController extends Controller
 {
     /**
@@ -95,7 +97,7 @@ class SellingReturnController extends Controller
             $return = new SellingReturn;
             $return->contact_id = $request->contact_id;
             $return->selling_id = $request->selling_id;
-            $return->return_number = $request->return_number;
+            $return->return_number = Help::dateCode('RSL', 'selling_returns', 'return_number');
             $return->reference_number = $request->reference_number;
             $return->message = $request->message;
             $return->memo = $request->memo;

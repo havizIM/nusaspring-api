@@ -12,6 +12,8 @@ use App\Selling;
 use App\SellingProduct;
 use App\Log;
 
+use Help;
+
 class SellingController extends Controller
 {
     /**
@@ -113,7 +115,7 @@ class SellingController extends Controller
             $selling->contact_id = $request->contact_id;
             $selling->email = $request->email;
             $selling->address = $request->address;
-            $selling->selling_number = $request->selling_number;
+            $selling->selling_number = Help::dateCode('SL', 'sellings', 'selling_number');
             $selling->reference_number = $request->reference_number;
             $selling->message = $request->message;
             $selling->memo = $request->memo;

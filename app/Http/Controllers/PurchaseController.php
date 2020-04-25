@@ -12,6 +12,8 @@ use App\Purchase;
 use App\PurchaseProduct;
 use App\Log;
 
+use Help;
+
 class PurchaseController extends Controller
 {
     /**
@@ -66,7 +68,7 @@ class PurchaseController extends Controller
 
         $validator = Validator::make($request->all(), [
             'contact_id' => 'required|exists:contacts,id',
-            'purchase_number' => 'required|unique:purchases',
+            'purchase_number' => 'required',
             'date' => 'required|date_format:Y-m-d',
             'total_ppn' => 'required|numeric',
             'product_id' => 'required|array',
@@ -110,7 +112,7 @@ class PurchaseController extends Controller
             $purchase->contact_id = $request->contact_id;
             $purchase->email = $request->email;
             $purchase->address = $request->address;
-            $purchase->purchase_number = $request->purchase_number;
+            $purchase->purchase_number = Help::dateCode('PO', 'purchases', 'purchase_number');
             $purchase->reference_number = $request->reference_number;
             $purchase->message = $request->message;
             $purchase->memo = $request->memo;
@@ -229,7 +231,7 @@ class PurchaseController extends Controller
         
         $validator = Validator::make($request->all(), [
             'contact_id' => 'required|exists:contacts,id',
-            'purchase_number' => 'required|unique:purchases',
+            'purchase_number' => 'required|string',
             'total_ppn' => 'required|numeric',
             'date' => 'required|date_format:Y-m-d',
             'product_id' => 'required|array',
