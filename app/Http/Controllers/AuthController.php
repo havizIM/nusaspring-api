@@ -59,9 +59,9 @@ class AuthController extends Controller
 
                     try {
                         $log = new Log;
-                        $log->user_id = Auth::id();
+                        $log->user_id = $user->id;
                         $log->description = 'Login System';
-                        $log->reference_id = Auth::id();
+                        $log->reference_id = $user->id;
                         $log->url = '#/setting';
                         $log->save();
                     } catch (\Exception $e) {
@@ -95,9 +95,9 @@ class AuthController extends Controller
 
         try {
             $log = new Log;
-            $log->user_id = Auth::id();
+            $log->user_id = $user->id;
             $log->description = 'Logout System';
-            $log->reference_id = Auth::id();
+            $log->reference_id = $user->id;
             $log->url = '#/setting';
             $log->save();
         } catch (\Exception $e) {
