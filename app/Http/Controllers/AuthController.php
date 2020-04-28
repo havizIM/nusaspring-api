@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Hash;
 use App\User;
 use Auth;
+use App\Log;
 
 
 class AuthController extends Controller
