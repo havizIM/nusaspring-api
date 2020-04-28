@@ -107,7 +107,7 @@ class CostController extends Controller
                 $detail = new CostDetail;
                 $detail->cost_id = $cost->id;
                 $detail->description = $request['description'][$key];
-                $detail->ppn = $request['ppn'][$key];
+                $detail->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
                 $detail->amount = $request['amount'][$key];
                 $detail->discount_percent = $request['discount_percent'][$key];
                 $detail->discount_amount = abs($request['discount_amount'][$key]) * -1;
@@ -177,7 +177,108 @@ class CostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cost = Cost::findOrFail($id);
+
+        $this->authorize('update', $cost);
+        
+        $validator = Validator::make($request->all(), [
+            'cost_number' => 'required|string',
+            'type' => 'required|in:Cash,Cek/Giro,Transfer,Kartu Kredit',
+            'date' => 'required|date_format:Y-m-d',
+            'description' => 'required|array',
+            'description.*' => 'required|string',
+            'amount' => 'required|array',
+            'amount.*' => 'required|numeric',
+        ]);
+            
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'Fields Required',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        DB::beginTransaction();
+
+            try {
+                $attachment = $request->file('attachment');
+        
+                if($attachment){
+                    $name       = $attachment->getClientOriginalName();
+                    $filename   = pathinfo($name, PATHINFO_FILENAME);
+                    $extension  = $attachment->getClientOriginalExtension();
+
+                    $store_as   = $filename.'_'.time().'.'.$extension;
+
+                    $attachment->storeAs('public/costs/', $store_as);
+                    $cost->attachment = $store_as;
+                } else {
+                    $store_as = NULL;
+                }
+                    
+                $cost->cost_number = $request->cost_number;
+                $cost->to = $request->to;
+                $cost->type = $request->type;
+                $cost->date = $request->date;
+                $cost->total_ppn = $request->total_ppn;
+                $cost->message = $request->message;
+                $cost->memo = $request->memo;
+
+                $cost->update();
+            } catch (\Exception $e) {
+                DB::rollback();
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Failed update cost',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
+            
+            $cost->details()->delete();
+
+            foreach($request['description'] as $key => $val){
+                try {
+                    $detail = new CostDetail;
+                    $detail->cost_id = $cost->id;
+                    $detail->description = $request['description'][$key];
+                    $detail->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
+                    $detail->amount = $request['amount'][$key];
+                    $detail->discount_percent = $request['discount_percent'][$key];
+                    $detail->discount_amount = abs($request['discount_amount'][$key]) * -1;
+                    $detail->save();
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Failed add detail',
+                        'error' => $e->getMessage()
+                    ], 500);
+                }
+            }
+
+            try {
+                $log = new Log;
+                $log->user_id = Auth::id();
+                $log->description = 'Update Cost';
+                $log->reference_id = $cost->id;
+                $log->url = '#/cost';
+
+                $log->save();
+            } catch (\Exception $e) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Failed add log',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
+
+        DB::commit();
+        return response()->json([
+            'status' => true,
+            'message' => 'Success update cost',
+            'results' => $cost,
+        ], 200);
     }
 
     /**

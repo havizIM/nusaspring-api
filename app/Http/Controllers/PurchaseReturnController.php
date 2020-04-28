@@ -121,7 +121,7 @@ class PurchaseReturnController extends Controller
                     $product->description = $request['description'][$key];
                     $product->unit = $request['unit'][$key];
                     $product->qty = abs($request['qty'][$key]) * -1;
-                    $product->ppn = $request['ppn'][$key];
+                    $product->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
                     $product->discount_percent = $request['discount_percent'][$key];
                     $product->discount_amount = abs($request['discount_amount'][$key]);
                     $product->unit_price = $request['unit_price'][$key];
@@ -256,8 +256,6 @@ class PurchaseReturnController extends Controller
                 $return->reference_number = $request->reference_number;
                 $return->message = $request->message;
                 $return->memo = $request->memo;
-                $return->discount_percent = $request->discount_percent;
-                $return->discount_amount = abs($request->discount_amount);
                 $return->total_ppn = abs($request->total_ppn) * -1;
                 $return->date = $request->date;
 
@@ -267,6 +265,7 @@ class PurchaseReturnController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Failed update return',
+                    'error' => $e->getMessage()
                 ], 500);
             }
             
@@ -281,7 +280,9 @@ class PurchaseReturnController extends Controller
                     $product->description = $request['description'][$key];
                     $product->unit = $request['unit'][$key];
                     $product->qty = abs($request['qty'][$key]) * -1;
-                    $product->ppn = $request['ppn'][$key];
+                    $product->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
+                    $product->discount_percent = $request['discount_percent'][$key];
+                    $product->discount_amount = abs($request['discount_amount'][$key]);
                     $product->unit_price = $request['unit_price'][$key];
                     $product->total = $request['unit_price'][$key] * abs($request['qty'][$key]) * -1;
 

@@ -122,7 +122,7 @@ class SellingReturnController extends Controller
                     $product->description = $request['description'][$key];
                     $product->unit = $request['unit'][$key];
                     $product->qty = $request['qty'][$key];
-                    $product->ppn = $request['ppn'][$key];
+                    $product->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
                     $product->discount_percent = $request['discount_percent'][$key];
                     $product->discount_amount = abs($request['discount_amount'][$key]) * -1;
                     $product->unit_price = $request['unit_price'][$key];
@@ -205,12 +205,12 @@ class SellingReturnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $return = SellingReturnProduct::findOrFail($id);
+        $return = SellingReturn::findOrFail($id);
 
         $this->authorize('update', $return);
         
         $validator = Validator::make($request->all(), [
-            'contact' => 'required|exists:contacts,id',
+            'contact_id' => 'required|exists:contacts,id',
             'return_number' => 'required',
             'date' => 'required|date_format:Y-m-d',
             'product_id' => 'required|array',
@@ -257,8 +257,6 @@ class SellingReturnController extends Controller
                 $return->reference_number = $request->reference_number;
                 $return->message = $request->message;
                 $return->memo = $request->memo;
-                $return->discount_percent = $request->discount_percent;
-                $return->discount_amount = abs($request->discount_amount) * -1;
                 $return->total_ppn = abs($request->total_ppn);
                 $return->date = $request->date;
 
@@ -281,7 +279,9 @@ class SellingReturnController extends Controller
                     $product->description = $request['description'][$key];
                     $product->unit = $request['unit'][$key];
                     $product->qty = $request['qty'][$key];
-                    $product->ppn = $request['ppn'][$key];
+                    $product->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
+                    $product->discount_percent = $request['discount_percent'][$key];
+                    $product->discount_amount = abs($request['discount_amount'][$key]) * -1;
                     $product->unit_price = $request['unit_price'][$key];
                     $product->total = $request['unit_price'][$key] * $request['qty'][$key];
                     $product->save();

@@ -140,7 +140,7 @@ class SellingController extends Controller
                 $product->description = $request['description'][$key];
                 $product->unit = $request['unit'][$key];
                 $product->qty = abs($request['qty'][$key]) * -1;
-                $product->ppn = $request['ppn'][$key];
+                $product->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
                 $product->discount_percent = $request['discount_percent'][$key];
                 $product->discount_amount = abs($request['discount_amount'][$key]);
                 $product->unit_price = $request['unit_price'][$key];
@@ -304,7 +304,7 @@ class SellingController extends Controller
                     $product->description = $request['description'][$key];
                     $product->unit = $request['unit'][$key];
                     $product->qty = abs($request['qty'][$key]) * -1;
-                    $product->ppn = $request['ppn'][$key];
+                    $product->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
                     $product->discount_percent = $request['discount_percent'][$key];
                     $product->discount_amount = abs( $request['discount_amount'][$key]);
                     $product->unit_price = $request['unit_price'][$key];
@@ -315,6 +315,7 @@ class SellingController extends Controller
                     return response()->json([
                         'status' => false,
                         'message' => 'Failed add product',
+                        'error' => $e->getMessage()
                     ], 500);
                 }
             }

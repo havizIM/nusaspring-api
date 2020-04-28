@@ -190,7 +190,7 @@ class SellingPaymentController extends Controller
                     $store_as   = $filename.'_'.time().'.'.$extension;
 
                     $picture->storeAs('public/selling_payments/', $store_as);
-                    $payment->picture = $store_as;
+                    $payment->attachment = $store_as;
                 } else {
                     $store_as = NULL;
                 }
@@ -208,7 +208,7 @@ class SellingPaymentController extends Controller
             } catch (\Exception $e) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Failed add payment',
+                    'message' => 'Failed edit payment',
                     'error' => $e->getMessage()
                 ], 500);
             }

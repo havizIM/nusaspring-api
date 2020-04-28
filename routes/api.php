@@ -24,6 +24,7 @@ Route::get('purchase_returns/file/{file_name}', 'PurchaseReturnController@pictur
 Route::get('selling_returns/file/{file_name}', 'SellingReturnController@picture');
 Route::get('purchase_payments/file/{file_name}', 'PurchasePaymentController@picture');
 Route::get('selling_payments/file/{file_name}', 'SellingPaymentController@picture');
+Route::get('costs/file/{file_name}', 'CostController@picture');
 
 Route::group([
     'middleware' => ['auth:api'],

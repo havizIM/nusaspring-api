@@ -137,7 +137,7 @@ class PurchaseController extends Controller
                 $product->description = $request['description'][$key];
                 $product->unit = $request['unit'][$key];
                 $product->qty = $request['qty'][$key];
-                $product->ppn = $request['ppn'][$key];
+                $product->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
                 $product->discount_percent = $request['discount_percent'][$key];
                 $product->discount_amount = abs($request['discount_amount'][$key]) * -1;
                 $product->unit_price = $request['unit_price'][$key];
@@ -303,7 +303,7 @@ class PurchaseController extends Controller
                     $product->description = $request['description'][$key];
                     $product->unit = $request['unit'][$key];
                     $product->qty = $request['qty'][$key];
-                    $product->ppn = $request['ppn'][$key];
+                    $product->ppn = isset($request['ppn'][$key]) ? $request['ppn'][$key] : 'N';
                     $product->discount_percent = $request['discount_percent'][$key];
                     $product->discount_amount = abs($request['discount_amount'][$key]) * -1;
                     $product->unit_price = $request['unit_price'][$key];
