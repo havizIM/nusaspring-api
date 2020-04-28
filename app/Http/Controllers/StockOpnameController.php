@@ -172,6 +172,8 @@ class StockOpnameController extends Controller
             'total_actual_qty',
         ]);
 
+        $this->authorize('view', $stock_opname);
+
         return response()->json([
             'status' => true,
             'message' => 'Success fetch specific stock opname',

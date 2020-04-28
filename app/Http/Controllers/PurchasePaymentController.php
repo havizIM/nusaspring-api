@@ -101,7 +101,7 @@ class PurchasePaymentController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Purchase Payment';
+                $log->description = 'Add Purchase Payment #'.$payment->payment_number;
                 $log->reference_id = $payment->id;
                 $log->url = '#/purchase_payment/'.$payment->id;
 
@@ -216,9 +216,9 @@ class PurchasePaymentController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Edit Purchase Payment';
+                $log->description = 'Edit Purchase Payment #'.$payment->payment_number;
                 $log->reference_id = $payment->id;
-                $log->url = '#/purchase_payment';
+                $log->url = '#/purchase_payment/'.$payment->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -265,7 +265,7 @@ class PurchasePaymentController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Purchase Payment';
+                $log->description = 'Delete Purchase Payment #'.$payment->payment_number;
                 $log->reference_id = $payment->id;
                 $log->url = '#/purchase_payment';
 

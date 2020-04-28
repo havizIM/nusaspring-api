@@ -142,7 +142,7 @@ class SellingReturnController extends Controller
         try {
             $log = new Log;
             $log->user_id = Auth::id();
-            $log->description = 'Add Selling Return';
+            $log->description = 'Add Selling Return #'.$return->return_number;
             $log->reference_id = $return->id;
             $log->url = '#/selling_return/'.$return->id;
 
@@ -297,9 +297,9 @@ class SellingReturnController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Selling Return';
+                $log->description = 'Update Selling Return #'.$return->return_number;
                 $log->reference_id = $return->id;
-                $log->url = '#/selling_return';
+                $log->url = '#/selling_return/'.$return->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -345,9 +345,9 @@ class SellingReturnController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Selling Return';
+                $log->description = 'Delete Selling Return #'.$return->return_number;
                 $log->reference_id = $return->id;
-                $log->url = '#/selling_return';
+                $log->url = '#/selling_return/'.$return->id;
 
                 $log->save();
             } catch (\Exception $e) {

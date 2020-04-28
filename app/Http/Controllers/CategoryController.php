@@ -79,7 +79,7 @@ class CategoryController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Category';
+                $log->description = 'Add Category #'.$category->id;
                 $log->reference_id = $category->id;
                 $log->url = '#/category';
 
@@ -153,7 +153,7 @@ class CategoryController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Category';
+                $log->description = 'Update Category #'.$category->id;
                 $log->reference_id = $category->id;
                 $log->url = '#/category';
 
@@ -202,7 +202,7 @@ class CategoryController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Category';
+                $log->description = 'Delete Category #'.$category->id;
                 $log->reference_id = $category->id;
                 $log->url = '#/category';
 

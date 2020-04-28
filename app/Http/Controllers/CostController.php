@@ -125,7 +125,7 @@ class CostController extends Controller
         try {
             $log = new Log;
             $log->user_id = Auth::id();
-            $log->description = 'Add Cost';
+            $log->description = 'Add Cost #'.$cost->cost_number;
             $log->reference_id = $cost->id;
             $log->url = '#/cost/'.$cost->id;
 
@@ -160,6 +160,8 @@ class CostController extends Controller
             'grand_total',
             'total_discount',
         ]);
+
+        $this->authorize('view', $cost);
 
         return response()->json([
             'status' => true,
@@ -260,9 +262,9 @@ class CostController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Cost';
+                $log->description = 'Update Cost #'.$cost->cost_number;
                 $log->reference_id = $cost->id;
-                $log->url = '#/cost';
+                $log->url = '#/cost/'.$cost->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -308,9 +310,9 @@ class CostController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Cost';
+                $log->description = 'Delete Cost #'.$cost->cost_number;
                 $log->reference_id = $cost->id;
-                $log->url = '#/cost/'.$cost->id;
+                $log->url = '#/cost';
 
                 $log->save();
             } catch (\Exception $e) {

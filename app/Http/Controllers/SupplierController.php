@@ -106,9 +106,9 @@ class SupplierController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Supplier';
+                $log->description = 'Add Supplier #'.$supplier->id;
                 $log->reference_id = $supplier->id;
-                $log->url = '#/supplier';
+                $log->url = '#/supplier/'.$supplier->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -144,6 +144,8 @@ class SupplierController extends Controller
             'updated_by_user', 
             'deleted_by_user'
         ])->findOrFail($id);
+
+        $this->authorize('view', $supplier);
 
         $supplier->setAppends([
             'sum_purchase', 
@@ -214,9 +216,9 @@ class SupplierController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Supplier';
+                $log->description = 'Update Supplier #'.$supplier->id;
                 $log->reference_id = $supplier->id;
-                $log->url = '#/supplier';
+                $log->url = '#/supplier/'.$supplier->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -263,7 +265,7 @@ class SupplierController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Supplier';
+                $log->description = 'Delete Supplier #'.$supplier->id;
                 $log->reference_id = $supplier->id;
                 $log->url = '#/supplier';
 

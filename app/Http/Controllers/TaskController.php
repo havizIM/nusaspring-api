@@ -74,7 +74,7 @@ class TaskController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Task';
+                $log->description = 'Add Task #'.$task->id;
                 $log->reference_id = $task->id;
                 $log->url = '#/task';
 
@@ -105,6 +105,8 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::findOrFail($id);
+
+        $this->authorize('view', $task);
 
         return response()->json([
             'status' => true,
@@ -158,7 +160,7 @@ class TaskController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Task';
+                $log->description = 'Update Task #'.$task->id;
                 $log->reference_id = $task->id;
                 $log->url = '#/task';
 
@@ -207,7 +209,7 @@ class TaskController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Task';
+                $log->description = 'Delete Task #'.$task->id;
                 $log->reference_id = $task->id;
                 $log->url = '#/task';
 

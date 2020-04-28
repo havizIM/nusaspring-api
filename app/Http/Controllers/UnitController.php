@@ -81,7 +81,7 @@ class UnitController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Unit';
+                $log->description = 'Add Unit #'.$unit->id;
                 $log->reference_id = $unit->id;
                 $log->url = '#/unit';
 
@@ -155,7 +155,7 @@ class UnitController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Edit Unit';
+                $log->description = 'Edit Unit #'.$unit->id;
                 $log->reference_id = $unit->id;
                 $log->url = '#/unit';
 
@@ -202,7 +202,7 @@ class UnitController extends Controller
         try {
             $log = new Log;
             $log->user_id = Auth::id();
-            $log->description = 'Delete Unit';
+            $log->description = 'Delete Unit #'.$unit->id;
             $log->reference_id = $unit->id;
             $log->url = '#/unit';
 

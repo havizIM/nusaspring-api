@@ -141,7 +141,7 @@ class PurchaseReturnController extends Controller
         try {
             $log = new Log;
             $log->user_id = Auth::id();
-            $log->description = 'Add Purchase Return';
+            $log->description = 'Add Purchase Return #'.$return->return_number;
             $log->reference_id = $return->id;
             $log->url = '#/purchase_return/'.$return->id;
 
@@ -299,9 +299,9 @@ class PurchaseReturnController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Purchase Return';
+                $log->description = 'Update Purchase Return #'.$return->return_number;
                 $log->reference_id = $return->id;
-                $log->url = '#/purchase_return';
+                $log->url = '#/purchase_return/'.$return->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -347,7 +347,7 @@ class PurchaseReturnController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Purchase Return';
+                $log->description = 'Delete Purchase Return #'.$return->return_number;
                 $log->reference_id = $return->id;
                 $log->url = '#/purchase_return';
 

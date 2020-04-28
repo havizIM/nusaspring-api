@@ -147,9 +147,9 @@ class AdjustmentController extends Controller
         try {
             $log = new Log;
             $log->user_id = Auth::id();
-            $log->description = 'Add Adjustment';
+            $log->description = 'Add Adjustment #'.$adjustment->reference_number;
             $log->reference_id = $adjustment->id;
-            $log->url = '#/adjustment';
+            $log->url = '#/adjustment/'.$adjustment->id;
 
             $log->save();
         } catch (\Exception $e) {
@@ -179,6 +179,8 @@ class AdjustmentController extends Controller
     {
         $adjustment = Adjustment::with(['products'])->findOrFail($id);
         $adjustment->setAppends(['grand_total', 'total_qty']);
+
+        $this->authorize('view', $adjustment);
 
         return response()->json([
             'status' => true,
@@ -301,9 +303,9 @@ class AdjustmentController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Adjustment';
+                $log->description = 'Update Adjustment #'.$adjustment->reference_number;
                 $log->reference_id = $adjustment->id;
-                $log->url = '#/adjustment';
+                $log->url = '#/adjustment/'.$adjustment->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -351,7 +353,7 @@ class AdjustmentController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Adjustment';
+                $log->description = 'Delete Adjustment #'.$adjustment->reference_number;
                 $log->reference_id = $adjustment->id;
                 $log->url = '#/adjustment';
 

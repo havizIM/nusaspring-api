@@ -77,7 +77,7 @@ class ReminderController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Reminder';
+                $log->description = 'Add Reminder #'.$reminder->id;
                 $log->reference_id = $reminder->id;
                 $log->url = '#/reminder';
 
@@ -108,6 +108,7 @@ class ReminderController extends Controller
     public function show($id)
     {
         $reminder = Reminder::findOrFail($id);
+        $this->authorize('view', $reminder);
 
         return response()->json([
             'status' => true,
@@ -164,7 +165,7 @@ class ReminderController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Reminder';
+                $log->description = 'Update Reminder #'.$reminder->id;
                 $log->reference_id = $reminder->id;
                 $log->url = '#/reminder';
 
@@ -213,7 +214,7 @@ class ReminderController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Reminder';
+                $log->description = 'Delete Reminder #'.$reminder->id;
                 $log->reference_id = $reminder->id;
                 $log->url = '#/reminder';
 

@@ -115,9 +115,9 @@ class ProductController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Product';
+                $log->description = 'Add Product #'.$product->sku;
                 $log->reference_id = $product->id;
-                $log->url = '#/product';
+                $log->url = '#/product/'.$product->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -241,9 +241,9 @@ class ProductController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Edit Category';
+                $log->description = 'Edit Category #'.$product->sku;
                 $log->reference_id = $product->id;
-                $log->url = '#/product';
+                $log->url = '#/product/'.$product->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -290,9 +290,9 @@ class ProductController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Product';
+                $log->description = 'Delete Product #'.$product->sku;
                 $log->reference_id = $product->id;
-                $log->url = '#/category';
+                $log->url = '#/product/'.$product->id;
 
                 $log->save();
             } catch (\Exception $e) {

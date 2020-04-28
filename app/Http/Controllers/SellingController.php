@@ -159,7 +159,7 @@ class SellingController extends Controller
         try {
             $log = new Log;
             $log->user_id = Auth::id();
-            $log->description = 'Add Selling';
+            $log->description = 'Add Selling #'.$selling->selling_number;
             $log->reference_id = $selling->id;
             $log->url = '#/selling/'.$selling->id;
 
@@ -323,7 +323,7 @@ class SellingController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Selling';
+                $log->description = 'Update Selling #'.$selling->selling_number;
                 $log->reference_id = $selling->id;
                 $log->url = '#/selling/'.$selling->id;
 
@@ -371,7 +371,7 @@ class SellingController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Selling';
+                $log->description = 'Delete Selling #'.$selling->selling_number;
                 $log->reference_id = $selling->id;
                 $log->url = '#/selling';
 

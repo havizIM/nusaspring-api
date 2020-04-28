@@ -101,9 +101,9 @@ class SellingPaymentController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Selling Payment';
+                $log->description = 'Add Selling Payment #'.$payment->payment_number;
                 $log->reference_id = $payment->id;
-                $log->url = '#/selling_payment';
+                $log->url = '#/selling_payment/'.$payment->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -216,9 +216,9 @@ class SellingPaymentController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Edit Selling Payment';
+                $log->description = 'Edit Selling Payment #'.$payment->payment_number;
                 $log->reference_id = $payment->id;
-                $log->url = '#/selling_payment';
+                $log->url = '#/selling_payment/'.$payment->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -265,7 +265,7 @@ class SellingPaymentController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Selling Payment';
+                $log->description = 'Delete Selling Payment #'.$payment->payment_number;
                 $log->reference_id = $payment->id;
                 $log->url = '#/selling_payment';
 

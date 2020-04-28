@@ -105,9 +105,9 @@ class CustomerController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Customer';
+                $log->description = 'Add Customer #'.$customer->id;
                 $log->reference_id = $customer->id;
-                $log->url = '#/customer';
+                $log->url = '#/customer/'.$customer->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -153,6 +153,8 @@ class CustomerController extends Controller
             'sum_selling_return_ppn',
             'sum_selling_return_discount',
         ]);
+
+        $this->authorize('view', $customer);
 
         return response()->json([
             'status' => true,
@@ -213,9 +215,9 @@ class CustomerController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Add Customer';
+                $log->description = 'Add Customer #'.$customer->id;
                 $log->reference_id = $customer->id;
-                $log->url = '#/customer';
+                $log->url = '#/customer/'.$customer->id;
 
                 $log->save();
             } catch (\Exception $e) {
@@ -262,7 +264,7 @@ class CustomerController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Customer';
+                $log->description = 'Delete Customer #'.$customer->id;
                 $log->reference_id = $customer->id;
                 $log->url = '#/customer';
 

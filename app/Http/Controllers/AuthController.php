@@ -47,7 +47,6 @@ class AuthController extends Controller
             } else {
                 
                 if($user->active === 'N') {
-
                     return response()->json([
                         'status' => false,
                         'message' => 'User is not active'
@@ -56,6 +55,21 @@ class AuthController extends Controller
                 } else {
 
                     $user->generateToken();
+
+                    try {
+                        $log = new Log;
+                        $log->user_id = Auth::id();
+                        $log->description = 'Login System';
+                        $log->reference_id = Auth::id();
+                        $log->url = '#/setting';
+                        $log->save();
+                    } catch (\Exception $e) {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Failed add log',
+                            'error' => $e->getMessage()
+                        ], 500);
+                    }
 
                     return response()->json([
                         'status' => true,
@@ -76,6 +90,21 @@ class AuthController extends Controller
         if ($user) {
             $user->api_token = null;
             $user->save();
+        }
+
+        try {
+            $log = new Log;
+            $log->user_id = Auth::id();
+            $log->description = 'Logout System';
+            $log->reference_id = Auth::id();
+            $log->url = '#/setting';
+            $log->save();
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed add log',
+                'error' => $e->getMessage()
+            ], 500);
         }
 
         return response()->json([

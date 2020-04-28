@@ -156,7 +156,7 @@ class PurchaseController extends Controller
         try {
             $log = new Log;
             $log->user_id = Auth::id();
-            $log->description = 'Add Purchase';
+            $log->description = 'Add Purchase #'.$purchase->purchase_number;
             $log->reference_id = $purchase->id;
             $log->url = '#/purchase/'.$purchase->id;
 
@@ -322,7 +322,7 @@ class PurchaseController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Update Purchase';
+                $log->description = 'Update Purchase #'.$purchase->purchase_number;
                 $log->reference_id = $purchase->id;
                 $log->url = '#/purchase/'.$purchase->id;
 
@@ -370,7 +370,7 @@ class PurchaseController extends Controller
             try {
                 $log = new Log;
                 $log->user_id = Auth::id();
-                $log->description = 'Delete Purchase';
+                $log->description = 'Delete Purchase #'.$purchase->purchase_number;
                 $log->reference_id = $purchase->id;
                 $log->url = '#/purchase';
 
