@@ -16,7 +16,7 @@ class CreateAdjustmentsTable extends Migration
         Schema::create('adjustments', function (Blueprint $table) {
             $table->id();
             $table->enum('category', ['Qty Awal', 'Transfer In', 'Transfer Out', 'Other']);
-            $table->string('reference_number', 20)->nullable();
+            $table->string('reference_number', 20)->index('reference_number')->nullable();
             $table->date('date');
             $table->text('memo')->nullable();
             $table->text('attachment')->nullable();

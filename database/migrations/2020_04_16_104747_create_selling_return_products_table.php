@@ -14,8 +14,13 @@ class CreateSellingReturnProductsTable extends Migration
     public function up()
     {
         Schema::create('selling_return_products', function (Blueprint $table) {
+
+            $table->index('selling_return_id');
             $table->foreignId('selling_return_id')->references('id')->on('selling_returns')->unsigned();
+
+            $table->index('product_id');
             $table->foreignId('product_id')->references('id')->on('products')->unsigned();
+
             $table->string('description');
             $table->double('qty', 15, 2);
             $table->string('unit');

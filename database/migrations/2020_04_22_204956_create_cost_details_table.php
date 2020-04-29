@@ -14,7 +14,10 @@ class CreateCostDetailsTable extends Migration
     public function up()
     {
         Schema::create('cost_details', function (Blueprint $table) {
+            
+            $table->index('cost_id');
             $table->foreignId('cost_id')->references('id')->on('costs')->unsigned();
+
             $table->string('description');
             $table->enum('ppn', ['Y', 'N'])->default('N');
             $table->double('amount', 15, 2);

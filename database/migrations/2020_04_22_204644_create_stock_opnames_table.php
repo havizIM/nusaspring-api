@@ -15,7 +15,7 @@ class CreateStockOpnamesTable extends Migration
     {
         Schema::create('stock_opnames', function (Blueprint $table) {
             $table->id();
-            $table->string('so_number', 20);
+            $table->string('so_number', 20)->index('so_number');
             $table->date('date');
             $table->enum('status', ['Proccess', 'Valid'])->default('Proccess');
             $table->text('message')->nullable();

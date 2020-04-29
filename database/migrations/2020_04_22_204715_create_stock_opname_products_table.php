@@ -14,8 +14,12 @@ class CreateStockOpnameProductsTable extends Migration
     public function up()
     {
         Schema::create('stock_opname_products', function (Blueprint $table) {
+            $table->index('stock_opname_id');
             $table->foreignId('stock_opname_id')->references('id')->on('stock_opnames')->unsigned();
+
+            $table->index('product_id');
             $table->foreignId('product_id')->references('id')->on('products')->unsigned();
+
             $table->string('description');
             $table->double('unit_price', 15, 2);
             $table->string('unit');

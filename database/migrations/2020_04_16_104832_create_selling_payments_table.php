@@ -15,9 +15,14 @@ class CreateSellingPaymentsTable extends Migration
     {
         Schema::create('selling_payments', function (Blueprint $table) {
             $table->id();
+
+            $table->index('contact_id');
             $table->foreignId('contact_id')->references('id')->on('contacts')->unsigned();
+
+            $table->index('selling_id');
             $table->foreignId('selling_id')->nullable()->references('id')->on('sellings');
-            $table->string('payment_number', 20);
+
+            $table->string('payment_number', 20)->index('payment_number');
             $table->enum('type', ['Cash', 'Cek/Giro', 'Transfer', 'Kartu Kredit']);
             $table->text('description')->nullable();
             $table->text('memo')->nullable();

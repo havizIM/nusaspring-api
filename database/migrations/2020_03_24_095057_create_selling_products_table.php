@@ -14,8 +14,12 @@ class CreateSellingProductsTable extends Migration
     public function up()
     {
         Schema::create('selling_products', function (Blueprint $table) {
+            $table->index('selling_id');
             $table->foreignId('selling_id')->references('id')->on('sellings')->unsigned();
+
+            $table->index('product_id');
             $table->foreignId('product_id')->references('id')->on('products')->unsigned();
+
             $table->string('description');
             $table->double('qty', 15, 2);
             $table->string('unit');

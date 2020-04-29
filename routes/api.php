@@ -26,6 +26,9 @@ Route::get('purchase_payments/file/{file_name}', 'PurchasePaymentController@pict
 Route::get('selling_payments/file/{file_name}', 'SellingPaymentController@picture');
 Route::get('costs/file/{file_name}', 'CostController@picture');
 
+
+Route::get('reminders/today', 'ReminderController@today');
+
 Route::group([
     'middleware' => ['auth:api'],
 ], function() {

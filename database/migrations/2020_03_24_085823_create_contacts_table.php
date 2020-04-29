@@ -15,7 +15,7 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('contact_name');
+            $table->string('contact_name')->index('contact_name');
             $table->enum('type', ['Customer', 'Supplier']);
             $table->string('pic')->nullable();
             $table->string('phone', 12)->nullable();

@@ -15,10 +15,13 @@ class CreateSellingsTable extends Migration
     {
         Schema::create('sellings', function (Blueprint $table) {
             $table->id();
+
+            $table->index('contact_id');
             $table->foreignId('contact_id')->references('id')->on('contacts')->unsigned();
+
             $table->string('email')->nullable();
             $table->text('address')->nullable();
-            $table->string('selling_number', 20);
+            $table->string('selling_number', 20)->index('selling_number');
             $table->string('reference_number', 20)->nullable();
             $table->text('message')->nullable();
             $table->text('memo')->nullable();

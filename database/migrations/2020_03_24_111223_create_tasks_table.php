@@ -15,7 +15,10 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+
+            $table->index('user_id');
             $table->foreignId('user_id')->references('id')->on('users')->unsigned();
+
             $table->string('title');
             $table->text('description')->nullable();
             $table->enum('color', ['primary', 'info', 'success', 'warning', 'danger'])->default('primary');

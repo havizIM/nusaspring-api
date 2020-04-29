@@ -15,10 +15,13 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+
+            $table->index('contact_id');
             $table->foreignId('contact_id')->references('id')->on('contacts')->unsigned();
+
             $table->string('email')->nullable();
             $table->text('address')->nullable();
-            $table->string('purchase_number', 20);
+            $table->string('purchase_number', 20)->index('purchase_number');
             $table->string('reference_number', 20)->nullable();
             $table->text('message')->nullable();
             $table->text('memo')->nullable();

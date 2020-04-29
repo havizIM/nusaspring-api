@@ -14,8 +14,12 @@ class CreatePurchaseProductsTable extends Migration
     public function up()
     {
         Schema::create('purchase_products', function (Blueprint $table) {
+            $table->index('purchase_id');
             $table->foreignId('purchase_id')->references('id')->on('purchases')->unsigned();
+
+            $table->index('product_id');
             $table->foreignId('product_id')->references('id')->on('products')->unsigned();
+
             $table->string('description');
             $table->double('qty', 15, 2);
             $table->string('unit');

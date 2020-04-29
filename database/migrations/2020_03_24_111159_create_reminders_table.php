@@ -15,7 +15,10 @@ class CreateRemindersTable extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
+
+            $table->index('user_id');
             $table->foreignId('user_id')->references('id')->on('users')->unsigned();
+            
             $table->text('description');
             $table->datetime('start_date');
             $table->datetime('end_date');

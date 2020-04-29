@@ -14,8 +14,12 @@ class CreateAdjustmentProductsTable extends Migration
     public function up()
     {
         Schema::create('adjustment_products', function (Blueprint $table) {
+            $table->index('adjustment_id');
             $table->foreignId('adjustment_id')->references('id')->on('adjustments')->unsigned();
+
+            $table->index('product_id');
             $table->foreignId('product_id')->references('id')->on('products')->unsigned();
+
             $table->string('description');
             $table->double('qty', 15, 2);
             $table->string('unit');

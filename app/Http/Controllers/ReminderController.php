@@ -235,4 +235,25 @@ class ReminderController extends Controller
             'results' => $reminder,
         ], 200);
     }
+
+    public function today()
+    {
+        $this->authorize('viewAny', Reminder::class);
+        
+        $date = date('Y-m-d H:i:s');
+        
+        $reminders = Reminder::where([
+            ['user_id', '=', Auth::id()],
+            ['start_date', '<=', $date],
+            ['end_date', '>=', $date]
+        ])->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Success fetch reminders',
+            'results' => $reminders
+        ]);
+    }
+
+    
 }
