@@ -131,26 +131,28 @@ class StockOpnameController extends Controller
             }
         }
 
-        foreach($request['add_product_id'] as $key => $val){
-            try {
-                $product = new StockOpnameProduct;
-                $product->stock_opname_id = $stock_opname->id;
-                $product->product_id = $request['add_product_id'][$key];
-                $product->description = $request['add_description'][$key];
-                $product->unit_price = $request['add_unit_price'][$key];
-                $product->unit = $request['add_unit'][$key];
-                $product->system_qty = $request['add_system_qty'][$key];
-                $product->actual_qty = $request['add_actual_qty'][$key];
-                $product->system_total = $request['add_system_total'][$key];
-                $product->actual_total = $request['add_actual_total'][$key];
-                $product->save();
-            } catch (\Exception $e) {
-                DB::rollback();
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Failed add Additional Product',
-                    'error' => $e->getMessage()
-                ], 500);
+        if($request['add_product_id']){
+            foreach($request['add_product_id'] as $key => $val){
+                try {
+                    $product = new StockOpnameProduct;
+                    $product->stock_opname_id = $stock_opname->id;
+                    $product->product_id = $request['add_product_id'][$key];
+                    $product->description = $request['add_description'][$key];
+                    $product->unit_price = $request['add_unit_price'][$key];
+                    $product->unit = $request['add_unit'][$key];
+                    $product->system_qty = $request['add_system_qty'][$key];
+                    $product->actual_qty = $request['add_actual_qty'][$key];
+                    $product->system_total = $request['add_system_total'][$key];
+                    $product->actual_total = $request['add_actual_total'][$key];
+                    $product->save();
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Failed add Additional Product',
+                        'error' => $e->getMessage()
+                    ], 500);
+                }
             }
         }
 
@@ -299,26 +301,28 @@ class StockOpnameController extends Controller
                 }
             }
 
-            foreach($request['add_product_id'] as $key => $val){
-                try {
-                    $product = new StockOpnameProduct;
-                    $product->stock_opname_id = $stock_opname->id;
-                    $product->product_id = $request['add_product_id'][$key];
-                    $product->description = $request['add_description'][$key];
-                    $product->unit_price = $request['add_unit_price'][$key];
-                    $product->unit = $request['add_unit'][$key];
-                    $product->system_qty = $request['add_system_qty'][$key];
-                    $product->actual_qty = $request['add_actual_qty'][$key];
-                    $product->system_total = $request['add_system_total'][$key];
-                    $product->actual_total = $request['add_actual_total'][$key];
-                    $product->save();
-                } catch (\Exception $e) {
-                    DB::rollback();
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Failed add Additional Product',
-                        'error' => $e->getMessage()
-                    ], 500);
+            if($request['add_product_id']){
+                foreach($request['add_product_id'] as $key => $val){
+                    try {
+                        $product = new StockOpnameProduct;
+                        $product->stock_opname_id = $stock_opname->id;
+                        $product->product_id = $request['add_product_id'][$key];
+                        $product->description = $request['add_description'][$key];
+                        $product->unit_price = $request['add_unit_price'][$key];
+                        $product->unit = $request['add_unit'][$key];
+                        $product->system_qty = $request['add_system_qty'][$key];
+                        $product->actual_qty = $request['add_actual_qty'][$key];
+                        $product->system_total = $request['add_system_total'][$key];
+                        $product->actual_total = $request['add_actual_total'][$key];
+                        $product->save();
+                    } catch (\Exception $e) {
+                        DB::rollback();
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Failed add Additional Product',
+                            'error' => $e->getMessage()
+                        ], 500);
+                    }
                 }
             }
 
