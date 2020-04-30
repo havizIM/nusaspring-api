@@ -23,7 +23,7 @@ class CreateSellingReturnProductsTable extends Migration
 
             $table->string('description');
             $table->double('qty', 15, 2);
-            $table->string('unit');
+            $table->string('unit')->nullable();
             $table->double('unit_price', 15, 2);
             $table->enum('ppn', ['Y', 'N'])->default('N');
             $table->double('discount_percent', 15, 2)->nullable();

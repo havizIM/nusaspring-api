@@ -77,8 +77,6 @@ class PurchaseController extends Controller
             'description.*' => 'required|string',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric',
-            'unit' => 'required|array',
-            'unit.*' => 'required|string',
             'unit_price' => 'required|array',
             'unit_price.*' => 'required|numeric',
         ]);
@@ -240,8 +238,6 @@ class PurchaseController extends Controller
             'description.*' => 'required|string',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric',
-            'unit' => 'required|array',
-            'unit.*' => 'required|string',
             'unit_price' => 'required|array',
             'unit_price.*' => 'required|numeric',
         ]);

@@ -22,7 +22,7 @@ class CreateStockOpnameProductsTable extends Migration
 
             $table->string('description');
             $table->double('unit_price', 15, 2);
-            $table->string('unit');
+            $table->string('unit')->nullable();
             $table->double('system_qty', 15, 2);
             $table->double('actual_qty', 15, 2);
             $table->double('system_total', 15, 2);

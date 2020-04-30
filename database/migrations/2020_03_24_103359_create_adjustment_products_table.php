@@ -22,7 +22,7 @@ class CreateAdjustmentProductsTable extends Migration
 
             $table->string('description');
             $table->double('qty', 15, 2);
-            $table->string('unit');
+            $table->string('unit')->nullable();
             $table->double('unit_price', 15, 2);
             $table->double('total', 15, 2);
         });
