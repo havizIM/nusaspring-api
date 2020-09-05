@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\Datatables;
 
 use App\Selling;
 use App\SellingProduct;
@@ -391,6 +392,20 @@ class SellingController extends Controller
             'message' => 'Success archive selling',
             'results' => $selling,
         ], 200);
+    }
+
+    public function dt()
+    {
+        
+        $this->authorize('viewAny', Selling::class);
+
+        $selling = Selling::with([
+            'contact'
+        ]);
+
+        $data = Datatables::eloquent($selling)->make(true);
+
+        return $data;
     }
 
     public function picture($filename)

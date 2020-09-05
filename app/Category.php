@@ -15,6 +15,10 @@ class Category extends Model
         'category_name'
     ];
 
+    protected $columns = array(
+        "categories.id",
+   );
+
     protected $hidden = [
         'created_by', 'updated_by', 'deleted_by'
     ];

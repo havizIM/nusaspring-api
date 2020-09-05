@@ -178,6 +178,7 @@ return [
 
         Spatie\Backup\BackupServiceProvider::class,
         App\Providers\KodeServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
