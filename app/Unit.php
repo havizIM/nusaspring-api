@@ -15,6 +15,10 @@ class Unit extends Model
         'unit_name'
     ];
 
+    protected $columns = array(
+        "units.id",
+   );
+
     protected $hidden = [
         'created_by', 'updated_by', 'deleted_by'
     ];

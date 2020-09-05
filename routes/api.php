@@ -52,8 +52,10 @@ Route::group([
 
     Route::apiResource('customers', 'CustomerController');
 
+    Route::get('products/dt', 'ProductController@dt');
     Route::apiResource('products', 'ProductController');
     
+    Route::get('sellings/dt', 'SellingController@dt');
     Route::apiResource('sellings', 'SellingController');
 
     Route::apiResource('purchases', 'PurchaseController');
