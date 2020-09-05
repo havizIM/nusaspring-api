@@ -31,6 +31,10 @@ class SellingController extends Controller
         $limit = $request->limit;
         $customer = $request->customer;
 
+        
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
         if($limit || $search || $customer){
             $sellings = Selling::where('contact_id', '=', $customer)
                                 ->where('selling_number', 'like', '%'.$search.'%')
@@ -39,7 +43,12 @@ class SellingController extends Controller
         } else {
             $sellings = Selling::with([
                 'contact'
-            ])->withCount('products')->get();
+            ])->when($bulan, function($query) use ($bulan){
+                return $query->whereMonth('date', $bulan);
+            })->when($tahun, function($query) use ($tahun){
+                return $query->whereYear('date', $tahun);
+            })
+            ->withCount('products')->get();
         }
 
         $sellings->each->setAppends([
