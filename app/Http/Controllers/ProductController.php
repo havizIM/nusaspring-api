@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\Datatables;
 
 use App\Product;
 use App\Log;
@@ -310,6 +311,20 @@ class ProductController extends Controller
             'message' => 'Success archive product',
             'results' => $product,
         ], 200);
+    }
+    
+    public function dt()
+    {
+        $this->authorize('viewAny', Product::class);
+
+        $product = Product::with([
+            'category', 
+            'unit'
+        ]);
+
+        $data = Datatables::eloquent($product)->make(true);
+
+        return $data;
     }
 
     public function picture($filename)
